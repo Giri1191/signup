@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin-top: 40px;
+            margin-left: 470px;
+            margin-right: 450px;
+            padding: 40px; 
+            font-size: x-large; 
+        }
+        body{
+            background-image: url("download\ \(11\).jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1{
+            text-align: center;
+            color: rgb(244, 5, 5);
+        }
+        form{
+            text-align: center;
+            font-size: x-large;
+        }
+        button{
+           background-color: rgb(5, 33, 249);
+           color: white;
+           font-size: large;
+        }
+        #content{
+            color: black;
+            font-size: large;
+        }
+        #content a{
+            font-weight: bolder;
+            font-size: large;
+            color: rgb(61, 8, 218);
+            text-decoration: none;
+        }
+        #content a:hover{
+            color: rgb(230, 21, 21);
+        }
+    </style>
+</head>
+<body>
+        <div class="container">
+            <h1>REGISTRATION</h1>
+            <form onsubmit="signUp(event)">
+               <input type="text" placeholder="Enter Fullname!!.." id="fullname">
+               <br><br>
+               <input type="email" placeholder="Enter Email!!.." id="email">
+               <br><br>
+               <input type="text" placeholder="Enter Mobile.No!!.." id="mobile">
+               <br><br>
+               <input type="password" placeholder="Enter Password!!.." id="password">
+               <br><br>
+               <input type="password" placeholder="Confirm password!!.." id="cpassword">
+               <br><br>
+               <button>SIGN UP</button>
+            </form>
+            <br>
+            <div id="content">
+                Already have an Account <a href="https://giri1191.github.io/login/">LOGIN HERE</a>
+            </div>
+        </div>
+        <script type="module">
+
+           import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+           import { getAuth,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+            const firebaseConfig = {
+              apiKey: "AIzaSyDcAYUVlc16Ek6L7_KHEUY-yp6QoDDpypQ",
+              authDomain: "authentication-2ff7e.firebaseapp.com",
+              projectId: "authentication-2ff7e",
+              storageBucket: "authentication-2ff7e.appspot.com",
+              messagingSenderId: "865977644086",
+              appId: "1:865977644086:web:73c306dc54b99d6dee1497",
+              measurementId: "G-CRQ544BC0H"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth();
+
+
+            var fullname=document.getElementById('fullname')
+            var email=document.getElementById('email')
+            var mobile=document.getElementById('mobile')
+            var pswd=document.getElementById('password')
+            var cpswd=document.getElementById('cpassword')
+            
+            window.signUp=function(e){
+                if(fullname.value=="" || email.value=="" || mobile.value=="" || pswd.value=="" || cpswd.value==""){
+                    alert("All fields are mandatory!!...")
+                }
+                else if(pswd.value!=cpswd.value){
+                    alert("Passwoed does not match!!!")
+                }
+                e.preventDefault()      
+                let obj={
+                    email:email.value,
+                    password:pswd.value
+                }
+                createUserWithEmailAndPassword(auth,obj.email,obj.password)
+                .then(()=>{
+                    alert("Successfully Registered!!!")
+                    window.location.replace("https://giri1191.github.io/login/")
+                })
+                .catch((err)=>{
+                    alert("Error!!!"+err)
+                })
+            }
+        </script>   
+</body>
+</html>
